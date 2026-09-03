@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pequenosinventores</title>
+  <meta name="description" content="Proyectos prácticos de robótica, construcción, máquinas, vehículos y desafíos de ingeniería para pequeños inventores." />
+
+  <style>
+    :root{
+      --navy:#16325c;
+      --blue:#2d74da;
+      --sky:#eaf4ff;
+      --yellow:#ffca3a;
+      --orange:#ff8a3d;
+      --green:#4caf70;
+      --red:#ef5350;
+      --ink:#183047;
+      --muted:#64748b;
+      --bg:#fffdf8;
+      --card:#ffffff;
+      --border:#e7edf4;
+      --shadow:0 18px 50px rgba(22,50,92,.12);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.55;
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1120px,92%);margin:0 auto}
+    .section{padding:82px 0}
+    .section-sm{padding:58px 0}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      background:#eef6ff;color:var(--blue);font-weight:800;font-size:.82rem;
+      text-transform:uppercase;letter-spacing:.04em;
+    }
+
+    h1,h2,h3{line-height:1.08;margin:0 0 18px}
+    h1{font-size:clamp(2.5rem,6vw,5.2rem);letter-spacing:-.045em}
+    h2{font-size:clamp(2rem,4vw,3.4rem);letter-spacing:-.035em}
+    h3{font-size:1.25rem}
+    p{margin:0 0 18px}
+    .lead{font-size:clamp(1.05rem,2vw,1.3rem);color:#4c6073}
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:17px 24px;border-radius:14px;border:0;
+      font-weight:900;font-size:1rem;cursor:pointer;
+      transition:.2s ease;box-shadow:0 10px 25px rgba(45,116,218,.22);
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--blue);color:#fff}
+    .btn-yellow{background:var(--yellow);color:#3a2b00;box-shadow:0 10px 24px rgba(255,202,58,.25)}
+    .btn-dark{background:var(--navy);color:#fff}
+    .btn-full{width:100%}
+
+    /* HERO */
+    .hero{
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,202,58,.25), transparent 26%),
+        radial-gradient(circle at 90% 20%, rgba(45,116,218,.18), transparent 25%),
+        linear-gradient(180deg,#fffdf8 0%,#f5fbff 100%);
+      padding:72px 0 64px;
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center;
+    }
+    .hero h1 span{color:var(--blue)}
+    .hero-bullets{
+      display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 28px
+    }
+    .pill{
+      background:#fff;border:1px solid var(--border);
+      padding:9px 12px;border-radius:999px;font-weight:800;font-size:.9rem;
+      box-shadow:0 7px 20px rgba(22,50,92,.06);
+    }
+    .hero-visual{
+      position:relative;min-height:470px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .mockup-main{
+      width:min(420px,90%);background:white;border-radius:28px;padding:22px;
+      box-shadow:var(--shadow);border:1px solid var(--border);transform:rotate(2deg);
+    }
+    .mockup-cover{
+      min-height:360px;border-radius:22px;
+      background:
+        linear-gradient(135deg,rgba(255,202,58,.98),rgba(255,138,61,.96)),
+        #ffca3a;
+      padding:28px;display:flex;flex-direction:column;justify-content:space-between;
+      color:#19334d;position:relative;overflow:hidden;
+    }
+    .cover-emoji{font-size:5rem}
+    .cover-title{font-size:2.2rem;font-weight:950;letter-spacing:-.04em}
+
+    .hero-product-image{
+      width:100%;max-width:760px;border-radius:28px;
+      box-shadow:var(--shadow);border:1px solid rgba(22,50,92,.08);
+      object-fit:cover;
+    }
+
+    .sticker{
+      position:absolute;background:#fff;border-radius:18px;padding:12px 14px;
+      box-shadow:0 14px 35px rgba(0,0,0,.12);font-weight:900
+    }
+    .s1{top:35px;right:-10px;transform:rotate(7deg)}
+    .s2{bottom:18px;left:-20px;transform:rotate(-7deg)}
+
+    /* cards */
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .card{
+      background:var(--card);border:1px solid var(--border);
+      border-radius:var(--radius);padding:24px;box-shadow:0 12px 35px rgba(22,50,92,.07);
+    }
+    .icon{
+      width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+      font-size:1.7rem;background:#eef6ff;margin-bottom:16px;
+    }
+    .section-head{max-width:760px;margin:0 auto 38px;text-align:center}
+
+    /* benefits */
+    .benefits{background:#f5fbff}
+    .benefit-card{display:flex;gap:14px;align-items:flex-start}
+    .check{
+      flex:0 0 34px;height:34px;border-radius:50%;display:grid;place-items:center;
+      background:#e9f8ef;color:var(--green);font-weight:950
+    }
+
+    /* bonuses */
+    .bonus-image{
+      width:100%;height:180px;object-fit:cover;border-radius:18px;margin-bottom:18px;
+      border:1px solid var(--border);background:#f7fafc;
+    }
+    .included{color:#16833d;font-weight:800}
+    .excluded{color:#d92d20;font-weight:800;text-decoration:line-through;text-decoration-thickness:2px}
+    .list-title{font-size:.78rem;font-weight:950;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 4px}
+    .list-title.green{color:#16833d}
+    .list-title.red{color:#d92d20}
+    .bonus-card{
+      background:linear-gradient(180deg,#fff 0%,#fffaf0 100%);
+      position:relative;overflow:hidden
+    }
+    .bonus-badge{
+      display:inline-block;background:var(--yellow);padding:6px 10px;border-radius:999px;
+      font-size:.78rem;font-weight:950;margin-bottom:16px
+    }
+
+    /* offer */
+    .offer{
+      background:linear-gradient(180deg,#17355f 0%,#102642 100%);
+      color:white;
+    }
+    .offer .section-head p{color:#cbd8e7}
+    .timer-wrap{display:flex;justify-content:center;margin:22px 0 34px}
+    .timer{
+      display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.16);padding:12px 16px;border-radius:16px;
+      backdrop-filter:blur(8px)
+    }
+    .timer strong{font-size:1.5rem;color:var(--yellow);letter-spacing:.05em}
+    .plans{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+    .plan{
+      color:var(--ink);background:#fff;border-radius:28px;padding:30px;
+      position:relative;border:2px solid transparent;
+    }
+    .plan.premium{
+      border-color:var(--yellow);transform:scale(1.02);
+      box-shadow:0 25px 65px rgba(0,0,0,.22)
+    }
+    .choice-badge{
+      position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+      background:var(--yellow);color:#3a2b00;font-weight:950;
+      padding:8px 16px;border-radius:999px;white-space:nowrap
+    }
+    .price{font-size:3.6rem;font-weight:950;letter-spacing:-.05em;color:var(--navy);margin:8px 0}
+    .plan ul{padding:0;list-style:none;margin:22px 0}
+    .plan li{padding:8px 0;border-bottom:1px solid #eef2f6}
+    .tiny{font-size:.86rem;color:var(--muted)}
+
+    /* carousel */
+    .carousel-shell{position:relative}
+    .carousel{
+      display:grid;grid-auto-flow:column;grid-auto-columns:minmax(340px,42%);
+      gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 18px;
+      scrollbar-width:none
+    }
+    .carousel::-webkit-scrollbar{display:none}
+    .sample{
+      scroll-snap-align:start;min-height:360px;border-radius:24px;padding:24px;
+      color:white;display:flex;flex-direction:column;justify-content:flex-end;
+      box-shadow:var(--shadow);position:relative;overflow:hidden
+    }
+    .sample:before{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.55) 100%);
+    }
+    .sample > *{position:relative;z-index:2}
+    .samp1{background:linear-gradient(135deg,#62b6ff,#3468d4)}
+    .samp2{background:linear-gradient(135deg,#ffca3a,#ff8a3d)}
+    .samp3{background:linear-gradient(135deg,#72d39a,#2b9a64)}
+    .samp4{background:linear-gradient(135deg,#9d7bf4,#6548bd)}
+    .samp5{background:linear-gradient(135deg,#ff7a7a,#d54b4b)}
+    .sample-emoji{font-size:5rem;margin-bottom:auto}
+    .carousel-actions{display:flex;justify-content:center;gap:10px;margin-top:14px}
+    .circle-btn{
+      width:46px;height:46px;border-radius:50%;border:1px solid var(--border);
+      background:white;font-size:1.2rem;cursor:pointer
+    }
+
+    /* testimonials */
+    .testimonial .stars{color:#f3a712;letter-spacing:2px;margin-bottom:12px}
+    .testimonial blockquote{margin:0 0 18px;font-size:1.02rem}
+    .person{display:flex;gap:12px;align-items:center}
+    .avatar{
+      width:46px;height:46px;border-radius:50%;background:#eaf4ff;
+      display:grid;place-items:center;font-size:1.4rem
+    }
+    .sample-label{
+      font-size:.72rem;font-weight:900;color:#8a6c00;background:#fff4bd;
+      padding:5px 8px;border-radius:999px;display:inline-block;margin-bottom:10px
+    }
+
+    /* about */
+    .about-section{padding:64px 0 46px}
+    .about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:38px;align-items:center}
+    .team-card{
+      background:#fff;border:1px solid var(--border);border-radius:28px;padding:24px;
+      box-shadow:0 16px 40px rgba(22,50,92,.09)
+    }
+    .team-photos{display:flex;justify-content:center;align-items:center;padding:12px 0 4px}
+    .team-photo{
+      width:124px;height:124px;border-radius:50%;object-fit:cover;border:7px solid #fff;
+      box-shadow:0 12px 28px rgba(22,50,92,.16);background:#eef3f8
+    }
+    .team-photo + .team-photo{margin-left:-18px}
+    .team-photo:nth-child(2){transform:translateY(-8px);z-index:2}
+    .team-caption{text-align:center;margin-top:18px;font-weight:900;color:var(--navy)}
+    .team-sub{text-align:center;color:var(--muted);font-size:.92rem;margin-top:4px}
+
+    /* guarantee */
+    .guarantee-box{
+      max-width:920px;margin:auto;border-radius:26px;padding:26px 30px;
+      background:linear-gradient(135deg,#f4fff7,#eefaf3);border:1px solid #cce8d5;
+      display:flex;gap:24px;align-items:center;box-shadow:0 12px 30px rgba(20,100,55,.07)
+    }
+    .seal{
+      flex:0 0 116px;width:116px;height:116px;border-radius:50%;
+      background:linear-gradient(145deg,#19904a,#0b6631);color:#fff;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+      font-weight:950;box-shadow:0 10px 24px rgba(17,94,46,.23);border:8px solid #daf1e2;
+      line-height:1.05
+    }
+    .seal .checkmark{width:30px;height:30px;border-radius:50%;background:#fff;color:#16833d;display:grid;place-items:center;font-size:1.1rem;margin-bottom:4px}
+    .seal .seven{font-size:2.2rem;line-height:.95}
+    .seal .days{font-size:.82rem;letter-spacing:.04em}
+    .seal .guarantee-word{font-size:.60rem;margin-top:3px;opacity:.95}
+
+
+    /* faq */
+    .faq{max-width:860px;margin:0 auto}
+    details{
+      background:#fff;border:1px solid var(--border);border-radius:16px;
+      padding:18px 20px;margin-bottom:12px
+    }
+    summary{cursor:pointer;font-weight:900}
+    details p{margin:14px 0 0;color:#52677b}
+
+    footer{
+      background:#0f223a;color:#c8d5e4;padding:34px 0
+    }
+    .footer-flex{
+      display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap
+    }
+    .footer-links{display:flex;gap:18px;flex-wrap:wrap}
+
+    .sticky-mobile{display:none}
+
+    @media(max-width:900px){
+      .hero-grid,.about-grid{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:1fr 1fr}
+      .plans{grid-template-columns:1fr}
+      .plan.premium{transform:none}
+      .carousel{grid-auto-columns:86%}
+    }
+
+    @media(max-width:640px){
+      .section{padding:58px 0}
+      .hero{padding:46px 0}
+      .grid-4,.grid-3{grid-template-columns:1fr}
+      .hero-visual{min-height:390px}
+      .mockup-cover{min-height:310px}
+      .guarantee-box{grid-template-columns:1fr;text-align:center}
+      .seal{margin:auto}
+      .carousel{grid-auto-columns:94%}
+      .sticky-mobile{
+        position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:block
+      }
+      .sticky-mobile .btn{width:100%;box-shadow:0 15px 35px rgba(0,0,0,.2)}
+      body{padding-bottom:78px}
+    }
+  
+    .real-sample{
+      scroll-snap-align:start;background:#fff;border:1px solid var(--border);
+      border-radius:22px;overflow:hidden;box-shadow:0 14px 34px rgba(22,50,92,.10);
+      cursor:zoom-in;transition:.2s ease;
+    }
+    .real-sample:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(22,50,92,.16)}
+    .real-sample img{
+      width:100%;
+      height:auto;
+      aspect-ratio:auto;
+      object-fit:contain;
+      display:block;
+      background:#f4f6f8;
+      image-rendering:auto;
+      -webkit-font-smoothing:antialiased;
+      
+    }
+    .real-sample-caption{
+      padding:15px 16px 17px;font-weight:900;color:var(--navy);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+    }
+    .real-sample-caption small{
+      font-size:.76rem;color:var(--muted);font-weight:700
+    }
+    .inside-proof{
+      display:inline-flex;align-items:center;gap:8px;background:#eaf8ef;color:#15733a;
+      padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:900;margin-top:10px;
+    }
+
+    .lightbox{
+      position:fixed;inset:0;background:rgba(5,16,30,.88);z-index:999;
+      display:none;align-items:center;justify-content:center;padding:24px;
+    }
+    .lightbox.open{display:flex}
+    .lightbox img{
+      width:auto;
+      height:auto;
+      max-width:94vw;
+      max-height:90vh;
+      object-fit:contain;
+      border-radius:14px;
+      box-shadow:0 30px 80px rgba(0,0,0,.45);
+      background:#fff;
+      image-rendering:auto;
+    }
+    .lightbox-close{
+      position:absolute;top:18px;right:22px;width:48px;height:48px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);
+      color:#fff;font-size:1.65rem;cursor:pointer;
+    }
+
+    .plan-basic-summary{
+      background:#f5fbf6;border:1px solid #cfe9d7;border-radius:16px;padding:14px 16px;
+      margin:18px 0 10px;color:#176837;font-weight:850;
+    }
+    .plan ul.compare-list{margin-top:10px}
+    .plan ul.compare-list li{
+      border-bottom:1px solid #eef2f6;padding:9px 0;font-size:.95rem
+    }
+    .plan ul.compare-list li.included{
+      color:#16833d;background:linear-gradient(90deg,rgba(22,131,61,.07),transparent);
+      padding-left:8px;border-radius:8px;
+    }
+    .plan ul.compare-list li.excluded{
+      color:#d92d20;background:linear-gradient(90deg,rgba(217,45,32,.06),transparent);
+      padding-left:8px;border-radius:8px;text-decoration:line-through;
+      text-decoration-thickness:2px;text-decoration-color:#d92d20;
+    }
+    .plan.premium ul li.included{
+      color:#16833d;font-weight:800;
+      background:linear-gradient(90deg,rgba(22,131,61,.07),transparent);
+      padding-left:8px;border-radius:8px;
+    }
+
+  
+    .avatar-photo{
+      background:linear-gradient(145deg,#dbeafe,#fef3c7);
+      color:var(--navy);
+      font-size:.82rem;
+      font-weight:950;
+      border:2px solid #fff;
+      box-shadow:0 4px 12px rgba(22,50,92,.12);
+    }
+
+  
+.team-visual{
+  width:100%;
+  border-radius:28px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:0 16px 40px rgba(22,50,92,.10);
+}
+.team-visual svg{display:block;width:100%;height:auto}
+
+
+    @media(max-width:900px){
+      .about-grid{grid-template-columns:1fr;gap:24px}
+      .about-section{padding:50px 0 32px}
+      .team-card{max-width:620px;margin:0 auto;width:100%}
+    }
+    @media(max-width:640px){
+      .about-section{padding:38px 0 24px}
+      .team-card{padding:18px 12px;border-radius:22px}
+      .team-photo{width:92px;height:92px;border-width:5px}
+      .team-photo + .team-photo{margin-left:-14px}
+      .guarantee-box{display:block;padding:24px 20px;text-align:center;border-radius:22px}
+      .seal{margin:0 auto 18px;width:108px;height:108px;flex-basis:108px}
+      .guarantee-box h2{font-size:1.55rem !important;line-height:1.15}
+      .guarantee-box p{font-size:.96rem}
+    }
+
+
+.guarantee-image-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.guarantee-image{
+  width:min(260px,100%);
+  height:auto;
+  display:block;
+  object-fit:contain;
+}
+@media(max-width:640px){
+  .guarantee-image{width:min(220px,72vw)}
+}
+
+
+    .hero-first-fold{
+      width:min(980px,92%);
+      margin:0 auto;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+    .hero-first-fold h1{
+      max-width:920px;
+      margin-top:18px;
+    }
+    .hero-subtitle{
+      max-width:790px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .hero-image-wrap{
+      width:100%;
+      margin:26px auto 22px;
+      display:flex;
+      justify-content:center;
+    }
+    .hero-image-wrap .hero-product-image{
+      width:100%;
+      max-width:880px;
+      height:auto;
+      display:block;
+      object-fit:contain;
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(22,50,92,.08);
+    }
+    .hero-first-fold .hero-bullets{
+      justify-content:center;
+      margin:4px 0 24px;
+    }
+    @media(max-width:640px){
+      .hero-first-fold{
+        width:min(94%,980px);
+      }
+      .hero-first-fold h1{
+        font-size:clamp(2.15rem,10vw,3.2rem);
+      }
+      .hero-image-wrap{
+        margin:20px auto 18px;
+      }
+      .hero-image-wrap .hero-product-image{
+        border-radius:18px;
+      }
+    }
+
+  
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:28px;
+  align-items:stretch;
+  margin-top:30px;
+}
+.price-card{
+  position:relative;
+  background:#fff;
+  border:1px solid rgba(22,50,92,.12);
+  border-radius:26px;
+  padding:30px;
+  box-shadow:var(--shadow);
+}
+.basic-card{border-top:5px solid #25a85a}
+.premium-card{
+  border:3px solid #f4b41a;
+  transform:translateY(-6px);
+}
+.popular-badge{
+  position:absolute;
+  top:-18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#f4b41a;
+  color:#17335d;
+  font-weight:900;
+  border-radius:999px;
+  padding:8px 18px;
+  white-space:nowrap;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+.plan-kicker{
+  font-size:.82rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#25a85a;
+  margin-bottom:5px;
+}
+.premium-card .plan-kicker{color:#d48c00}
+.price-card h3{margin:0 0 8px}
+.plan-subtitle{min-height:54px;color:#51627d}
+.price{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:4px;
+  margin:18px 0 22px;
+  color:#17335d;
+}
+.price .currency{font-weight:900;margin-top:9px}
+.price strong{font-size:4rem;line-height:.9}
+.offer-list-title{
+  font-size:.82rem;
+  font-weight:900;
+  margin:20px 0 10px;
+  letter-spacing:.04em;
+}
+.included-title{color:#18864a}
+.excluded-title{color:#c84949}
+.offer-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  gap:9px;
+  text-align:left;
+}
+.offer-list li{line-height:1.35;font-size:.96rem}
+.offer-list.included li{color:#21486d}
+.offer-list.excluded li{
+  color:#c85858;
+  text-decoration:line-through;
+  opacity:.9;
+}
+.btn-basic,.btn-premium{
+  width:100%;
+  margin-top:24px;
+  text-align:center;
+}
+.btn-basic{background:#25a85a;color:#fff}
+.btn-premium{background:#f4b41a;color:#17335d}
+.microcopy{
+  font-size:.78rem;
+  margin:10px 0 0;
+  text-align:center;
+  color:#6f7d91;
+}
+@media(max-width:820px){
+  .pricing-grid{grid-template-columns:1fr}
+  .premium-card{transform:none;margin-top:18px}
+  .plan-subtitle{min-height:0}
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- 1. HERO -->
+  <header class="hero">
+    <div class="container hero-first-fold">
+      <span class="eyebrow">🚀 Pequeños Inventores</span>
+
+      <h1>Tu hijo puede dejar la pantalla cuando descubre algo <span>más divertido para crear.</span></h1>
+
+      <p class="lead hero-subtitle">
+        Una colección digital de proyectos, construcciones, máquinas, vehículos y desafíos
+        para transformar parte del tiempo frente al celular en creatividad, curiosidad y aprendizaje.
+      </p>
+
+      <div class="hero-image-wrap">
+        <img class="hero-product-image" src="pequenos_inventores_assets/imagem_1.png" alt="Kit digital Pequeños Inventores con proyectos de robótica, vehículos, grúas, mecanismos y desafíos de ingeniería">
+      </div>
+
+      <div class="hero-bullets">
+        <span class="pill">🤖 Proyectos prácticos</span>
+        <span class="pill">📵 Diversión sin pantallas</span>
+        <span class="pill">🧠 Creatividad y razonamiento</span>
+        <span class="pill">⚡ Acceso digital inmediato</span>
+      </div>
+
+      <a class="btn btn-primary" href="#oferta">QUIERO DESPERTAR SU CREATIVIDAD →</a>
+    </div>
+  </header>
+
+  <!-- 2. LO QUE RECIBIRÁ -->
+  <section class="section" id="contenido">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Todo en un solo lugar</span>
+        <h2>Un mundo de inventos esperando por tu hijo</h2>
+        <p class="lead">No se trata de mirar cómo se hace. Se trata de construir, probar, equivocarse y volver a intentarlo.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card"><div class="icon">🤖</div><h3>Proyectos de Robótica</h3><p class="muted">Primeros proyectos para acercarse al mundo de la robótica de una manera divertida.</p></article>
+        <article class="card"><div class="icon">🚗</div><h3>Vehículos para Construir</h3><p class="muted">Autos, barcos, aviones y otros proyectos llenos de movimiento y curiosidad.</p></article>
+        <article class="card"><div class="icon">🏗️</div><h3>Grúas y Construcciones</h3><p class="muted">Actividades que muestran de forma práctica cómo pueden funcionar diferentes estructuras.</p></article>
+        <article class="card"><div class="icon">⚙️</div><h3>Máquinas Simples</h3><p class="muted">Proyectos con movimiento, fuerza, equilibrio y principios mecánicos sencillos.</p></article>
+        <article class="card"><div class="icon">🔩</div><h3>Mecanismos</h3><p class="muted">Ruedas, ejes, manivelas, poleas y otras ideas para aprender haciendo.</p></article>
+        <article class="card"><div class="icon">🧠</div><h3>Desafíos de Ingeniería</h3><p class="muted">Retos que estimulan el razonamiento y la búsqueda de soluciones.</p></article>
+        <article class="card"><div class="icon">🏠</div><h3>Robótica Fácil en Casa</h3><p class="muted">Proyectos seleccionados con explicaciones sencillas para comenzar desde casa.</p></article>
+        <article class="card"><div class="icon">👦</div><h3>Mis Primeros Proyectos</h3><p class="muted">Actividades introductorias para los pequeños inventores que recién comienzan.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. BENEFICIOS -->
+  <section class="section benefits">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Más que entretenimiento</span>
+        <h2>No se trata solo de mantenerlo ocupado</h2>
+        <p class="lead">Se trata de ofrecer una alternativa en la que pueda crear con sus propias manos.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card benefit-card"><span class="check">✓</span><div><h3>Menos tiempo frente a pantallas</h3><p class="muted">Una alternativa práctica para esos momentos en los que el celular parece ser la única opción.</p></div></div>
+        <div class="card benefit-card"><span class="check">✓</span><div><h3>Desarrolla la creatividad</h3><p class="muted">Deja de ser un espectador y comienza a imaginar, construir y experimentar.</p></div></div>
+        <div class="card benefit-card"><span class="check">✓</span><div><h3>Estimula el razonamiento</h3><p class="muted">Los proyectos y retos invitan a pensar y encontrar soluciones.</p></div></div>
+        <div class="card benefit-card"><span class="check">✓</span><div><h3>Aprende haciendo</h3><p class="muted">Los conceptos se vuelven más interesantes cuando pueden verse y probarse en la práctica.</p></div></div>
+        <div class="card benefit-card"><span class="check">✓</span><div><h3>Despierta la curiosidad</h3><p class="muted">Cada proyecto puede convertirse en una nueva pregunta, idea o descubrimiento.</p></div></div>
+        <div class="card benefit-card"><span class="check">✓</span><div><h3>Momentos en familia</h3><p class="muted">Algunos proyectos pueden convertirse en una actividad especial para padres e hijos.</p></div></div>
+      </div>
+
+      <p class="center lead" style="margin-top:34px;font-weight:800;color:var(--navy)">
+        Hoy puede parecer un simple proyecto. Para tu hijo, puede ser el comienzo de una pasión por crear.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. BONOS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">🎁 Incluidos</span>
+        <h2>Y eso no es todo...</h2>
+        <p class="lead">También preparamos extras para hacer la experiencia todavía más divertida.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card bonus-card">
+          <span class="bonus-badge">BONUS 01</span>
+          <img class="bonus-image" src="pequenos_inventores_assets/imagem_2.png" alt="30 Desafíos del Pequeño Inventor">
+          <h3>30 Desafíos del Pequeño Inventor</h3>
+          <p class="muted">Retos adicionales para estimular el razonamiento, la observación y la resolución de problemas.</p>
+        </article>
+
+        <article class="card bonus-card">
+          <span class="bonus-badge">BONUS 02</span>
+          <img class="bonus-image" src="pequenos_inventores_assets/imagem_3.png" alt="Pasaporte del Pequeño Inventor">
+          <h3>Pasaporte del Pequeño Inventor</h3>
+          <p class="muted">Una introducción para pequeños inventores que están descubriendo mecanismos, movimiento y construcción.</p>
+        </article>
+
+        <article class="card bonus-card">
+          <span class="bonus-badge">BONUS 03</span>
+          <img class="bonus-image" src="pequenos_inventores_assets/imagem_4.png" alt="Diploma Oficial Pequeños Inventores">
+          <h3>Diploma Oficial Pequeños Inventores</h3>
+          <p class="muted">Un certificado imprimible para celebrar los proyectos completados y hacer la experiencia más especial.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. OFERTA -->
+  
+<section class="section offer-section" id="oferta">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">💰 OFERTA DE LANZAMIENTO</span>
+      <h2>Elige el kit ideal para tu pequeño inventor</h2>
+      <p>Empieza con robótica o lleva la experiencia completa con proyectos de construcción, vehículos, máquinas, mecanismos y desafíos.</p>
+    </div>
+
+    <div class="timer-box">
+      <div class="timer-label">Esta oferta puede terminar en:</div>
+      <div class="timer" id="countdown">15:00</div>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="price-card basic-card">
+        <div class="plan-kicker">KIT ROBÓTICA</div>
+        <h3>Pequeños Inventores</h3>
+        <p class="plan-subtitle"><strong>19 proyectos</strong> para comenzar a crear, construir y descubrir.</p>
+
+        <div class="price"><span class="currency">US$</span><strong>5</strong></div>
+
+        <div class="offer-list-title included-title">SÍ RECIBES:</div>
+        <ul class="offer-list included">
+          <li>✓ 19 proyectos prácticos de robótica</li>
+          <li>✓ Robots y máquinas con movimiento</li>
+          <li>✓ Inventos con materiales simples y reciclados</li>
+          <li>✓ Guías paso a paso</li>
+          <li>✓ Actividades para diferentes edades</li>
+          <li>✓ Aprendizaje mientras construye</li>
+          <li>✓ BONUS: Pasaporte del Pequeño Inventor</li>
+          <li>✓ Acceso digital inmediato</li>
+          <li>✓ Garantía de 7 días</li>
+        </ul>
+
+        <div class="offer-list-title excluded-title">NO INCLUYE:</div>
+        <ul class="offer-list excluded">
+          <li>✕ Mega colección de 71 proyectos y actividades</li>
+          <li>✕ Kit Grandes Construcciones</li>
+          <li>✕ Kit Vehículos Inventores</li>
+          <li>✕ Kit Máquinas y Mecanismos</li>
+          <li>✕ Kit Desafíos de Ingeniería</li>
+          <li>✕ BONUS: 30 Desafíos del Pequeño Inventor</li>
+          <li>✕ BONUS: Diploma Oficial Pequeños Inventores</li>
+        </ul>
+
+        <a class="btn btn-basic" href="#checkout-basico">QUIERO EL KIT ROBÓTICA →</a>
+        <p class="microcopy">Pago único · Acceso inmediato · Sin mensualidades</p>
+      </article>
+
+      <article class="price-card premium-card">
+        <div class="popular-badge">⭐ MÁS ELEGIDO</div>
+        <div class="plan-kicker">MEGA KIT</div>
+        <h3>Pequeños Inventores</h3>
+        <p class="plan-subtitle"><strong>71 proyectos y actividades</strong> para crear, construir, experimentar y aprender.</p>
+
+        <div class="price"><span class="currency">US$</span><strong>15</strong></div>
+
+        <div class="offer-list-title included-title">TODO ESTO ESTÁ INCLUIDO:</div>
+        <ul class="offer-list included premium-list">
+          <li>✓ Kit Robótica — 19 proyectos</li>
+          <li>✓ Kit Grandes Construcciones</li>
+          <li>✓ Kit Vehículos Inventores</li>
+          <li>✓ Kit Máquinas y Mecanismos</li>
+          <li>✓ Kit Desafíos de Ingeniería</li>
+          <li>✓ Robótica, grúas, vehículos, máquinas y mecanismos</li>
+          <li>✓ Actividades para diferentes edades</li>
+          <li>✓ Materiales simples y fáciles de encontrar</li>
+          <li>✓ BONUS: 30 Desafíos del Pequeño Inventor</li>
+          <li>✓ BONUS: Pasaporte del Pequeño Inventor</li>
+          <li>✓ BONUS: Diploma Oficial Pequeños Inventores</li>
+          <li>✓ Acceso digital inmediato</li>
+          <li>✓ Garantía de 7 días</li>
+        </ul>
+
+        <a class="btn btn-premium" href="#checkout-premium">QUIERO EL MEGA KIT →</a>
+        <p class="microcopy">Pago único · Acceso inmediato · Sin mensualidades</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Mira por dentro</span>
+        <h2>Mira algunos de los proyectos que tu pequeño inventor podrá crear</h2>
+        <p class="lead">Estas son imágenes reales de proyectos incluidos en el material.</p>
+        <span class="inside-proof">✓ Ejemplos reales del contenido</span>
+      </div>
+
+      <div class="carousel-shell">
+        <div class="carousel" id="carousel">
+          
+          <article class="real-sample" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="pequenos_inventores_assets/imagem_5.png" alt="Proyecto de grúa con cartón">
+            <div class="real-sample-caption">
+              <span>Proyecto de grúa con cartón</span>
+              <small>Ver grande ↗</small>
+            </div>
+          </article>
+          <article class="real-sample" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="pequenos_inventores_assets/imagem_6.png" alt="Grúa hidráulica con jeringas">
+            <div class="real-sample-caption">
+              <span>Grúa hidráulica con jeringas</span>
+              <small>Ver grande ↗</small>
+            </div>
+          </article>
+          <article class="real-sample" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="pequenos_inventores_assets/imagem_7.png" alt="Grúa puente">
+            <div class="real-sample-caption">
+              <span>Grúa puente</span>
+              <small>Ver grande ↗</small>
+            </div>
+          </article>
+          <article class="real-sample" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="pequenos_inventores_assets/imagem_8.png" alt="Grúa de palitos y gomas">
+            <div class="real-sample-caption">
+              <span>Grúa de palitos y gomas</span>
+              <small>Ver grande ↗</small>
+            </div>
+          </article>
+          <article class="real-sample" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="pequenos_inventores_assets/imagem_9.png" alt="Engranajes de cartón">
+            <div class="real-sample-caption">
+              <span>Engranajes de cartón</span>
+              <small>Ver grande ↗</small>
+            </div>
+          </article>
+        </div>
+
+        <div class="carousel-actions">
+          <button class="circle-btn" aria-label="Anterior" onclick="slideCarousel(-1)">←</button>
+          <button class="circle-btn" aria-label="Siguiente" onclick="slideCarousel(1)">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" aria-label="Cerrar" onclick="document.getElementById('lightbox').classList.remove('open')">×</button>
+    <img id="lightboxImage" src="" alt="Vista ampliada del proyecto">
+  </div>
+
+  <!-- 7. TESTIMONIOS -->
+  <section class="section benefits">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Familias</span>
+        <h2>Lo que dicen las familias</h2>
+        <p class="lead">Creatividad, curiosidad y nuevos momentos lejos de las pantallas.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card testimonial">
+          <div class="stars">★★★★★</div>
+          <blockquote>“A Mateo le encantó elegir qué quería construir primero. Se quedó concentrado muchísimo tiempo y después quería enseñarnos cómo funcionaba todo.”</blockquote>
+          <div class="person">
+            <div class="avatar avatar-photo">MG</div>
+            <div><strong>Mariana García</strong><br><span class="muted">Ciudad de México, México</span></div>
+          </div>
+        </article>
+
+        <article class="card testimonial">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Me gustó porque no es solo para imprimir y guardar. Son actividades que realmente dan ganas de hacer. Mi hijo ya eligió varios proyectos para el fin de semana.”</blockquote>
+          <div class="person">
+            <div class="avatar avatar-photo">AR</div>
+            <div><strong>Alejandra Ramírez</strong><br><span class="muted">Guadalajara, México</span></div>
+          </div>
+        </article>
+
+        <article class="card testimonial">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Buscábamos algo diferente al celular y terminamos construyendo juntos. Lo que más le gustó fueron las grúas y los engranajes.”</blockquote>
+          <div class="person">
+            <div class="avatar avatar-photo">CH</div>
+            <div><strong>Carlos Hernández</strong><br><span class="muted">Monterrey, México</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. SOBRE -->
+  <section class="about-section">
+    <div class="container about-grid">
+      <div class="team-card">
+        <div class="team-photos">
+          <img class="team-photo" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=88" alt="Equipo Pequeños Inventores" loading="lazy">
+          <img class="team-photo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=88" alt="Equipo Pequeños Inventores" loading="lazy">
+          <img class="team-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=88" alt="Equipo Pequeños Inventores" loading="lazy">
+        </div>
+        <div class="team-caption">Equipo Pequeños Inventores</div>
+        <div class="team-sub">Creatividad, aprendizaje y proyectos para hacer con las manos.</div>
+      </div>
+      <div>
+        <span class="eyebrow">Nuestra misión</span>
+        <h2>¿Qué hay detrás de Pequeños Inventores?</h2>
+        <p class="lead">Una propuesta creada para ayudar a las familias a cambiar parte del tiempo frente a las pantallas por momentos de creación, curiosidad y descubrimiento.</p>
+        <p>Reunimos actividades prácticas para que los niños puedan construir, probar, equivocarse, volver a intentarlo y aprender mientras hacen algo que realmente les divierte.</p>
+        <p><strong>Menos consumo pasivo. Más manos creando.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. GARANTÍA -->
+  <section class="section-sm" style="padding-top:24px">
+    <div class="container">
+      <div class="guarantee-box">
+        <div class="guarantee-image-wrap">
+          <img class="guarantee-image" src="pequenos_inventores_assets/imagem_10.png" alt="Garantía incondicional de 7 días">
+        </div>
+    </div>
+  </section>
+
+  <!-- 10. FAQ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>¿Todavía tienes dudas?</h2>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>¿Pequeños Inventores es un producto físico?</summary>
+          <p>No. Es un producto digital. Después de la confirmación del pago recibirás acceso al material.</p>
+        </details>
+        <details>
+          <summary>¿Para qué edades está recomendado?</summary>
+          <p>La colección incluye actividades de diferentes niveles. Los padres pueden seleccionar los proyectos más adecuados según la edad y capacidad de cada niño.</p>
+        </details>
+        <details>
+          <summary>¿Necesito comprar materiales especiales?</summary>
+          <p>Depende del proyecto. Muchas actividades utilizan materiales simples, mientras que algunos proyectos de robótica pueden requerir componentes específicos. Revisa siempre la lista de materiales antes de comenzar.</p>
+        </details>
+        <details>
+          <summary>¿Necesito tener conocimientos de robótica?</summary>
+          <p>No. Hay proyectos pensados para comenzar desde cero y explorar de forma práctica conceptos de construcción, mecanismos y robótica.</p>
+        </details>
+        <details>
+          <summary>¿Cómo recibo el material?</summary>
+          <p>Después de la confirmación del pago recibirás las instrucciones para acceder al contenido digital.</p>
+        </details>
+        <details>
+          <summary>¿La compra es una suscripción?</summary>
+          <p>No. Es un pago único. No hay mensualidades.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section-sm center" style="background:#fff6d9">
+    <div class="container">
+      <span class="eyebrow">🚀 Empieza hoy</span>
+      <h2 style="margin-top:16px">Cambia un poco de pantalla por mucho más de imaginación</h2>
+      <p class="lead" style="max-width:720px;margin:0 auto 24px">Elige el kit que prefieras y dale a tu pequeño inventor nuevas razones para crear.</p>
+      <a class="btn btn-primary" href="#oferta">VER LOS PLANES →</a>
+    </div>
+  </section>
+
+  <!-- 11. FOOTER -->
+  <footer>
+    <div class="container footer-flex">
+      <div>© 2026 Pequeños Inventores. Todos los derechos reservados.</div>
+      <nav class="footer-links">
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Política de Privacidad</a>
+        <a href="#">Contacto</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="sticky-mobile">
+    <a class="btn btn-yellow" href="#oferta">VER OFERTA • DESDE US$5</a>
+  </div>
+
+  <script>
+    // Temporizador de 15 minutos.
+    // Se reinicia al recargar la página. Si quieres persistencia real,
+    // puedes guardar el tiempo en localStorage o controlar la oferta desde el checkout.
+    let totalSeconds = 15 * 60;
+    const timerEl = document.getElementById('timer');
+
+    function updateTimer(){
+      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2,'0');
+      const seconds = String(totalSeconds % 60).padStart(2,'0');
+      timerEl.textContent = `${minutes}:${seconds}`;
+
+      if(totalSeconds > 0){
+        totalSeconds--;
+      } else {
+        clearInterval(timerInterval);
+        timerEl.textContent = '00:00';
+      }
+    }
+
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+
+    function slideCarousel(direction){
+      const carousel = document.getElementById('carousel');
+      const amount = Math.min(carousel.clientWidth * .75, 420);
+      carousel.scrollBy({left: direction * amount, behavior:'smooth'});
+    }
+
+    // IMPORTANTE:
+    // Sustituye los href "#checkout-basico" y "#checkout-premium"
+    // por las URLs reales de tus checkouts.
+  
+    function openLightbox(src){
+      const box = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImage');
+      img.src = src;
+      box.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event){
+      if(event.target.id === 'lightbox'){
+        event.currentTarget.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        const box = document.getElementById('lightbox');
+        if(box) box.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+
+  </script>
+</body>
+</html>
